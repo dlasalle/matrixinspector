@@ -1,0 +1,9 @@
+/bin
+/domlib
+/common
+/build
+/content
+*.log
+*.swp
+.svn
+Makefile
