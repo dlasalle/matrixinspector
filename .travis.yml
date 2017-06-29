@@ -3,5 +3,11 @@ compiler:
   - clang
   - gcc
 
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libwxgtk3.0-dev
+  - sudo apt-get install -y libwxgtk3.0-0v5
+
 script:
   - ./configure --test && make && make test
