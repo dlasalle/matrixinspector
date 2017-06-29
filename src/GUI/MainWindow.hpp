@@ -15,7 +15,7 @@
 
 
 
-
+#include <functional>
 #include <wx/wx.h>
 #include "Data/DataStorage.hpp"
 #include "View/View.hpp"
