@@ -45,6 +45,8 @@ show_help() {
   echo "    Set the C++ compiler to use."
   echo "  --devel"
   echo "    Turn on compiler warnings."
+  echo "  --wxconfig=<wxconfig bin>"
+  echo "    Specify the binary of the wxWidgets configuration utility."
   echo "  --test"
   echo "    Enable unit testing."
   echo ""
@@ -99,6 +101,9 @@ for i in "${@}"; do
     # cxx
     --cxx*)
     CONFIG_FLAGS="${CONFIG_FLAGS} -DCMAKE_CXX_COMPILER=${i#*=}"
+    ;;
+    --wxconfig=*)
+    CONFIG_FLAGS="${CONFIG_FLAGS} -DwxWidgets_CONFIG_EXECUTABLE=${i#*=}"
     ;;
     # testing
     --test)
