@@ -4,6 +4,9 @@ MatrixInspector
 A tool for viewing and manipulating sparse matrices.
 
 
+![unzoomed](screenshots/full.png)
+![zoomed](screenshots/zoom.png)
+
 
 Build Dependencies 
 ------------------

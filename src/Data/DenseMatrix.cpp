@@ -14,7 +14,7 @@
 
 
 
-namespace MatrixInpsector
+namespace MatrixInspector
 {
 
 

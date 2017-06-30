@@ -17,7 +17,7 @@
 #include "GUI/App.hpp"
 
 
-using namespace MatrixInpsector;
+using namespace MatrixInspector;
 
 
 wxIMPLEMENT_APP(App);

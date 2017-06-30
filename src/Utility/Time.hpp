@@ -20,7 +20,7 @@
 
 
 
-namespace MatrixInpsector
+namespace MatrixInspector
 {
  
 

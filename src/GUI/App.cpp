@@ -18,7 +18,7 @@
 
 
 
-namespace MatrixInpsector
+namespace MatrixInspector
 {
 
 
@@ -32,7 +32,7 @@ bool App::OnInit()
   wxDisplay disp;
   wxRect rect = disp.GetGeometry();
 
-  MainWindow * win = new MainWindow("MatrixInpsector",rect.GetWidth()*0.1, \
+  MainWindow * win = new MainWindow("MatrixInspector",rect.GetWidth()*0.1, \
       rect.GetHeight()*0.1,rect.GetWidth()*0.8,rect.GetHeight()*0.8);
   win->Show(true);
   return true;
