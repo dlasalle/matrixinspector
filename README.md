@@ -21,6 +21,27 @@ Runtime Dependencies
 - wxWidgets 3
 
 
+Packages
+--------
+
+Built using <a href="https://bytepackager.com">BytePackager</a>.
+
+<a href="https://github.com/dlasalle/matrixinspector/releases">
+  <img src="https://bytepackager.com/badge/VefW9zE-E0j4UGbPa_kjCUuz4-c/status.svg"/>
+</a>
+
+<a href="https://github.com/dlasalle/matrixinspector/releases">
+  <img src="https://bytepackager.com/badge/MClh85CCBcxAEQmblgE8wNNLDgQ/status.svg"/>
+</a>
+
+<a href="https://github.com/dlasalle/matrixinspector/releases">
+  <img src="https://bytepackager.com/badge/8of7nmEr3apgAwfAEwjqWs7Og3U/status.svg"/>
+</a>
+
+<a href="https://github.com/dlasalle/matrixinspector/releases">
+  <img src="https://bytepackager.com/badge/VefW9zE-E0j4UGbPa_kjCUuz4-c/status.svg"/>
+</a>
+
 
 Building
 --------
