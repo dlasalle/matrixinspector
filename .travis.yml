@@ -1,13 +1,9 @@
 language: cpp
 compiler:
-  - clang
   - gcc
-
-
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y libwxgtk
-  - sudo apt-get install -y libwxgtk-dev
-
+  - sudo apt-get -qqy update
+  - sudo apt-get install -qy libwxgtk3.0-0v5
+  - sudo apt-get install -qy libwxgtk3.0-dev
 script:
   - ./configure --test && make && make test
