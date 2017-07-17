@@ -9,12 +9,13 @@
 
 
 
-#ifndef DOMGEON_TEST_UNITTEST_HPP
-#define DOMGEON_TEST_UNITTEST_HPP
+#ifndef TEST_UNITTEST_HPP
+#define TEST_UNITTEST_HPP
 
 
 
 
+#include <stdexcept>
 #include <exception>
 #include <iostream>
 
