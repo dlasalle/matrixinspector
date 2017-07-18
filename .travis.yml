@@ -16,7 +16,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: ${SECURE_TOKEN}
+    secure: yaT3I4NzSl+G8B4WkN08d/sTBBGtySpHEOfZyb48lsrMt4P6JXADt198ryUV6ARjbCSm5IitC48PInQZ0i8FtSbirwHxzBFbEekeG0rclxnKUCZyP9f/et2Ki009m1bWEMzskeGHcI7A0llF3DiSVXE1fTOWFdwcOEy78HLr5okHvM2d0kg9UNEShRYql5puT8T0faiQvn6HpKL1ZvcCbFKolBDkP7CUVN23xNumCGdrCzOp8kZmrDmYSHFo/NcHvKDiQRQ7Zp9HHaC9MBf77gKowD8OO3aawkDj5eLERkBOtVoIebvhF2QYwyFKZD90XfKSklldGPD8hDjmzCJOatYfpHOjXaS90aotnft6/z+KkqO/bpLP3CpZ+nWO1ld4qFSoH/z+QPVz+ZYnJRUr+TNHeS/JKKpQPvtIuvFLBikkzOKUVR6Mem3dnFG8WvJC8dQaCHapjjS3AVJR2zp1v+NRatxjxzp/+qtacG4Di7WW8W3LVisJFEO3S45V5EFxcvofZ25yNKIW5VOqT0h3l2/bvgilB+XHB/8ImTG+fnzsU+MOMp+IjFXfIDUCPPbSwEOdEda3I2eb6gqSjCHTEr9pV2yALnApo7gynr68gr4QMldp9ZlYB24H6pz+2UP4L9fRlgiLItN8pfNVvveIby2umG7+cbe9ehMW+KzLLP4=
   file_glob: true
   file:
     - dist/*
