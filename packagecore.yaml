@@ -29,17 +29,6 @@ packages:
     deps:
       - wxGTK3
       - freeglut
-  centos7.3:
-    builddeps:
-      - cmake 
-      - gcc-c++
-      - wxGTK3
-      - wxGTK3-devel
-      - freeglut
-      - freeglut-devel
-    deps:
-      - wxGTK3
-      - freeglut
   ubuntu17.10:
     builddeps:
       - cmake 

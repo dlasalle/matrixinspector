@@ -138,6 +138,13 @@ mkdir -vp "${BUILDDIR}" || \
     die "Failed to create build directory: '${BUILDDIR}'"
 
 
+# handle oddly named wx-config
+ODD_WXCONFIG="/usr/bin/wx-config-3.0"
+if [[ -e "${ODD_WXCONFIG}" ]]; then
+  echo "Using odd wx-config name '${ODD_WXCONFIG}'"
+  CONFIG_FLAGS="${CONFIG_FLAGS} -DwxWidgets_CONFIG_EXECUTABLE=${ODD_WXCONFIG}"
+fi
+
 
 
 ###############################################################################
