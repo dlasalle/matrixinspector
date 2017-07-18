@@ -1,0 +1,42 @@
+name: matrixinspector
+maintainer: dominique@solidlake.com
+license: MIT
+summary: Utility for viewing and modifying sparse matrices.
+homepage: https://github.com/dlasalle/matrixinspector
+commands:
+  compile: |
+    ./configure --prefix=/usr && make
+  install: |
+    make install DESTDIR="${BP_DESTDIR}"
+packages:
+  archlinux:
+    builddeps:
+      - cmake 
+      - gcc
+      - wxgtk
+    deps:
+      - wxgtk
+  fedora25:
+    builddeps:
+      - cmake 
+      - gcc-c++
+      - libwxGTK3
+      - libwxGTK3-devel
+    deps:
+      - libwxGTK3
+  centos7.3:
+    builddeps:
+      - cmake 
+      - gcc-c++
+      - libwxGTK3
+      - libwxGTK3-devel
+    deps:
+      - libwxGTK3
+  ubuntu17.10:
+    builddeps:
+      - cmake 
+      - g++
+      - libwxgtk3.0-0v5
+      - libwxgtk3.0-dev
+    deps:
+      - libwxgtk3.0-0v5
