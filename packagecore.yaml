@@ -14,29 +14,37 @@ packages:
       - cmake 
       - gcc
       - wxgtk
+      - glu
     deps:
       - wxgtk
+      - glu
   fedora25:
     builddeps:
       - cmake 
       - gcc-c++
       - libwxGTK3
       - libwxGTK3-devel
+      - glu
     deps:
       - libwxGTK3
+      - glu
   centos7.3:
     builddeps:
       - cmake 
       - gcc-c++
       - libwxGTK3
       - libwxGTK3-devel
+      - glu
     deps:
       - libwxGTK3
+      - glu
   ubuntu17.10:
     builddeps:
       - cmake 
       - g++
       - libwxgtk3.0-0v5
       - libwxgtk3.0-dev
+      - glu
     deps:
       - libwxgtk3.0-0v5
+      - glu
