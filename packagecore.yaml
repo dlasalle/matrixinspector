@@ -22,29 +22,32 @@ packages:
     builddeps:
       - cmake 
       - gcc-c++
-      - libwxGTK3
-      - libwxGTK3-devel
-      - glu
+      - wxGTK3
+      - wxGTK3-devel
+      - freeglut
+      - freeglut-devel
     deps:
-      - libwxGTK3
-      - glu
+      - wxGTK3
+      - freeglut
   centos7.3:
     builddeps:
       - cmake 
       - gcc-c++
-      - libwxGTK3
-      - libwxGTK3-devel
-      - glu
+      - wxGTK3
+      - wxGTK3-devel
+      - freeglut
+      - freeglut-devel
     deps:
-      - libwxGTK3
-      - glu
+      - wxGTK3
+      - freeglut
   ubuntu17.10:
     builddeps:
       - cmake 
       - g++
       - libwxgtk3.0-0v5
       - libwxgtk3.0-dev
-      - glu
+      - freeglut3
+      - freeglut3-dev
     deps:
       - libwxgtk3.0-0v5
-      - glu
+      - freeglut3
