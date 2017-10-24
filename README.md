@@ -26,7 +26,7 @@ Packages
 
 Built using <a href="https://github.com/BytePackager/packagecore">PackageCore</a>.
 
-See <a href="https://github.com/dlasalle/matrixinspector/releases">releases</a>
+See <a href="https://github.com/dlasalle/matrixinspector/releases">releases page</a>
 for Arch, Fedora, and Ubuntu packages.
 
 
