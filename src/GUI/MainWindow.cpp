@@ -460,7 +460,12 @@ void MainWindow::onStats(
     if (!mat->isStatsSet()) {
       runTaskProgress("Statistics","Computing matrix statistics...",
           [&](double * done) {
-            mat->computeStats(done);
+            if (mat->isSymmetrySet()) {
+              mat->computeSymmetry(done, 0.6);
+              mat->computeStats(done, 0.4);
+            } else {
+              mat->computeStats(done, 1.0);
+            }
           });
     }
   } catch (std::bad_alloc const & e) {

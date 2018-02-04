@@ -59,7 +59,9 @@ class DenseMatrix :
         double scale) override;
 
 
-    void computeSymmetry() override;
+    void computeSymmetry(
+        double * progress,
+        double scale) override;
 
 
   private:

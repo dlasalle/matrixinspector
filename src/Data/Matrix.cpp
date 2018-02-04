@@ -31,12 +31,7 @@ namespace MatrixInspector
 Matrix::Matrix(
     dim_type const numRows,
     dim_type const numCols) :
-  m_numRows(numRows),
-  m_numCols(numCols),
-  m_symmetrySet(false),
-  m_symmetry(false),
-  m_statsSet(false),
-  m_stats{0,0,0,0}
+  Matrix(numRows, numCols, false)
 {
   // do nothing
 }
@@ -51,7 +46,10 @@ Matrix::Matrix(
   m_symmetrySet(true),
   m_symmetry(sym),
   m_statsSet(false),
-  m_stats{0,0,0,0}
+  m_maxRowSize(0),
+  m_maxColumnSize(0),
+  m_numEmptyRows(0),
+  m_numEmptyColumns(0)
 {
   // do nothing
 }
@@ -61,8 +59,6 @@ Matrix::~Matrix()
 {
   // do nothing
 }
-
-
 
 
 /******************************************************************************
@@ -110,23 +106,43 @@ bool Matrix::isStatsSet() const noexcept
 }
 
 
-Matrix::stats_struct Matrix::getStats() const
+dim_type Matrix::getMaxRowSize() const
 {
   if (!isStatsSet()) {
     throw std::runtime_error("Stats have not been computed yet.");
   }
 
-  return m_stats;
+  return m_maxRowSize;
 }
 
 
-Matrix::stats_struct Matrix::getStats()
+dim_type Matrix::getMaxColumnSize() const
 {
   if (!isStatsSet()) {
-    computeStats();
+    throw std::runtime_error("Stats have not been computed yet.");
   }
 
-  return m_stats;
+  return m_maxColumnSize;
+}
+
+
+dim_type Matrix::getNumEmptyRows() const
+{
+  if (!isStatsSet()) {
+    throw std::runtime_error("Stats have not been computed yet.");
+  }
+
+  return m_numEmptyRows;
+}
+
+
+dim_type Matrix::getNumEmptyColumns() const
+{
+  if (!isStatsSet()) {
+    throw std::runtime_error("Stats have not been computed yet.");
+  }
+
+  return m_numEmptyColumns;
 }
 
 
@@ -141,10 +157,10 @@ void Matrix::computeStats(
 
   if (getNumRows() == 0 || getNumColumns() == 0) {
     // handle empty matrix
-    m_stats.maxRowSize = 0;
-    m_stats.maxColSize = 0;
-    m_stats.numEmptyRows = getNumRows();
-    m_stats.numEmptyCols = getNumColumns();
+    m_maxRowSize = 0;
+    m_maxColumnSize = 0;
+    m_numEmptyRows = getNumRows();
+    m_numEmptyColumns = getNumColumns();
 
     if (progress != nullptr) {
       *progress += scale;
@@ -156,11 +172,13 @@ void Matrix::computeStats(
       Stats::countRowNonZeros(this,rowCounts.data());
       std::sort(rowCounts.begin(),rowCounts.end());
 
-      m_stats.maxRowSize = rowCounts.back();
+      m_maxRowSize = rowCounts.back();
 
-      index_type i;
-      for (i = 0; i < rowCounts.size() && rowCounts[i] == 0; ++i);
-      m_stats.numEmptyRows = i;
+      index_type i = 0;
+      while (i < rowCounts.size() && rowCounts[i] == 0) {
+        ++i;
+      }
+      m_numEmptyRows = i;
     }
 
     if (progress != nullptr) {
@@ -173,11 +191,11 @@ void Matrix::computeStats(
       Stats::countColumnNonZeros(this,colCounts.data());
       std::sort(colCounts.begin(),colCounts.end());
 
-      m_stats.maxColSize = colCounts.back();
+      m_maxColumnSize = colCounts.back();
 
       index_type i;
       for (i = 0; i < colCounts.size() && colCounts[i] == 0; ++i);
-      m_stats.numEmptyCols = i;
+      m_numEmptyColumns = i;
     }
 
     if (progress != nullptr) {
@@ -229,7 +247,17 @@ void Matrix::reorder(
 }
 
 
+void Matrix::computeSymmetry()
+{
+  computeSymmetry(nullptr, 1.0);
+}
 
+
+void Matrix::computeSymmetry(
+    double * const progress)
+{
+  computeSymmetry(progress, 1.0);
+}
 
 /******************************************************************************
 * PROTECTED FUNCTIONS *********************************************************
@@ -253,8 +281,7 @@ void Matrix::setNumColumns(
 void Matrix::setSymmetry(
     bool const sym)
 {
-  assert(isSquare());
-
+  assert(!sym || isSquare());
   m_symmetry = sym;
   m_symmetrySet = true;
 }
