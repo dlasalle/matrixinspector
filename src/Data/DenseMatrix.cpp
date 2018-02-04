@@ -19,6 +19,18 @@ namespace MatrixInspector
 
 
 /******************************************************************************
+* CONSTANTS *******************************************************************
+******************************************************************************/
+
+namespace
+{
+
+double const INCREMENT = 0.01;
+
+}
+
+
+/******************************************************************************
 * CONSTRUCTORS / DESTRUCTOR ***************************************************
 ******************************************************************************/
 
@@ -181,22 +193,33 @@ void DenseMatrix::reduce(
 }
 
 
-void DenseMatrix::computeSymmetry()
+void DenseMatrix::computeSymmetry(
+    double * const progress,
+    double const scale)
 {
+  dim_type const numRows = getNumRows();
+  dim_type const numCols = getNumColumns();
+
+  dim_type const interval = numRows > 100 ? numRows / 100 : 1;
+
   if (!isSquare()) {
     // easy call
     setSymmetry(false);
   } else {
-    dim_type const numRows = getNumRows();
-    dim_type const numCols = getNumColumns();
-
     for (dim_type row = 0; row < numRows; ++row) {
       for (dim_type col = 0; col < row; ++ col) {
         if (m_values[(row*numCols)+col] != m_values[(col*numRows)+row]) {
           // missing non-zero
           setSymmetry(false);
+          if (progress != nullptr && row % interval == 0) {
+            *progress += ((numRows - row)/100) * scale * INCREMENT;
+          }
           return;
         }
+      }
+
+      if (progress != nullptr && row % interval == 0) {
+        *progress += INCREMENT * scale;
       }
     }
 

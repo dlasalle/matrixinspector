@@ -63,7 +63,6 @@ StatsWindow::StatsWindow(
   m_storage(storage)
 {
   Matrix const * const mat = storage->getMatrix();
-  Matrix::stats_struct const stats = mat->getStats();
 
   wxBoxSizer * allSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -80,10 +79,10 @@ StatsWindow::StatsWindow(
   addRow(allSizer,"Symmetric",BOOL_NAMES[mat->isSymmetric()]);
 
   // real stats
-  addRow(allSizer,"Maximum NNZ per row", stats.maxRowSize);
-  addRow(allSizer,"Maximum NNZ per column", stats.maxColSize);
-  addRow(allSizer,"Number of empty rows", stats.numEmptyRows);
-  addRow(allSizer,"Number of empty columns", stats.numEmptyCols);
+  addRow(allSizer,"Maximum NNZ per row", mat->getMaxRowSize());
+  addRow(allSizer,"Maximum NNZ per column", mat->getMaxColumnSize());
+  addRow(allSizer,"Number of empty rows", mat->getNumEmptyRows());
+  addRow(allSizer,"Number of empty columns", mat->getNumEmptyColumns());
 
   // setup dialog buttons
   wxBoxSizer * bottomSizer = new wxBoxSizer(wxHORIZONTAL);

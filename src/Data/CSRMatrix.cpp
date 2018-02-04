@@ -361,7 +361,9 @@ void CSRMatrix::reduce(
 }
 
 
-void CSRMatrix::computeSymmetry()
+void CSRMatrix::computeSymmetry(
+    double * const progress,
+    double const scale)
 {
   if (!isSquare()) {
     // easy call
@@ -398,6 +400,10 @@ void CSRMatrix::computeSymmetry()
       }
     }
     #else
+
+    // determine rows per percent
+    dim_type interval = numRows > 30 ? numRows / 30 : 1; 
+
     for (dim_type row = 0; row < numRows; ++row) {
       for (index_type idx = m_offsets[row]; idx < m_offsets[row+1]; ++idx) {
         dim_type const col = m_columns[idx];
@@ -412,8 +418,15 @@ void CSRMatrix::computeSymmetry()
         if (idx2 == m_offsets[col+1] || m_values[idx2] != val) {
           // not matching values 
           setSymmetry(false);
+          if (progress != nullptr && row % interval == 0) {
+            *progress += ((numRows - row)/30) * scale * INCREMENT;
+          }
           return;
         }
+      }
+
+      if (progress != nullptr && row % interval == 0) {
+        *progress += scale*INCREMENT;
       }
     }
     #endif
