@@ -12,6 +12,7 @@
 #include "CSRMatrix.hpp"
 #include "Utility/Debug.hpp"
 #include "Utility/PrefixSum.hpp"
+#include <limits>
 
 
 
@@ -29,6 +30,7 @@ namespace
 {
 
 double const INCREMENT = 0.01;
+value_type const EPSILON = std::numeric_limits<value_type>::epsilon();
 
 }
 
@@ -415,7 +417,10 @@ void CSRMatrix::computeSymmetry(
             break;
           }
         }
-        if (idx2 == m_offsets[col+1] || m_values[idx2] != val) {
+        value_type const tolerance = std::max(EPSILON, \
+            static_cast<value_type>(val*1e-8));
+        if (idx2 == m_offsets[col+1] || \
+            std::abs(m_values[idx2] - val) > tolerance) {
           // not matching values 
           setSymmetry(false);
           if (progress != nullptr && row % interval == 0) {
