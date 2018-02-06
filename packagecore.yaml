@@ -12,6 +12,7 @@ packages:
   archlinux:
     builddeps:
       - cmake 
+      - make
       - gcc
       - wxgtk
       - glu
