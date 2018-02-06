@@ -234,14 +234,17 @@ void MainWindow::onOpen(
   try {
     runTaskProgress("Loading", \
         std::string("Opening ") + m_currentPath + std::string(" ..."),
-        [&](double * done) {
+        [&](double * const done) {
           m_storage.loadDataset(m_currentPath.c_str(), done);
         });
 
-    Matrix const * mat = m_storage.getMatrix();
     updateMatrixSize();
 
+    Matrix const * const mat = m_storage.getMatrix();
     m_view->setMatrix(mat);
+
+
+    m_view->render();
 
     // re-enable things
     m_menuBar->EnableTop(1,true);
@@ -285,7 +288,8 @@ void MainWindow::onSaveAs(
 {
   wxFileDialog saveFileDialog(this, _("Save Matrix/Graph"), "", "", \
       "CSR (*.csr)|*.csr|" \
-      "Metis/Chaco (*.graph;*.chaco)|*.graph;*.chaco", \
+      "Metis/Chaco (*.graph;*.chaco)|*.graph;*.chaco|" \
+      "MatrixMarket (*.mtx;*.mm)|*.mtx;*.mm", \
       wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
 	if (saveFileDialog.ShowModal() == wxID_CANCEL) {
