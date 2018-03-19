@@ -41,18 +41,21 @@ class HeatMap
 
       float const mag = 255.0*4.0;
 
-      if (val < 0.25) {
-        B = static_cast<uint32_t>(val*mag);
-      } else if (val < 0.5) {
-        G = static_cast<uint32_t>((val - 0.25)*mag);
-        B = static_cast<uint32_t>((0.5 - val)*mag);
-      } else if (val < 0.75) {
-        R = static_cast<uint32_t>((val - 0.5)*mag);
-        G = static_cast<uint32_t>((0.75 - val)*mag);
-      } else {
-        R = 255;
-        G = static_cast<uint32_t>((val - 0.75)*mag);
-        B = static_cast<uint32_t>((val - 0.75)*mag); 
+      if (val > 0) {
+        if (val < 0.25) {
+          // always have at least half blue for a non-zero entry
+          B = static_cast<uint32_t>((0.05 + (val*0.2))*mag);
+        } else if (val < 0.5) {
+          G = static_cast<uint32_t>((val - 0.25)*mag);
+          B = static_cast<uint32_t>((0.5 - val)*mag);
+        } else if (val < 0.75) {
+          R = static_cast<uint32_t>((val - 0.5)*mag);
+          G = static_cast<uint32_t>((0.75 - val)*mag);
+        } else {
+          R = 255;
+          G = static_cast<uint32_t>((val - 0.75)*mag);
+          B = static_cast<uint32_t>((val - 0.75)*mag);
+        }
       }
 
       assert(R < 256);
