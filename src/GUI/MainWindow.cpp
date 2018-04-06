@@ -150,6 +150,58 @@ MainWindow::MainWindow(
 ******************************************************************************/
 
 
+void MainWindow::load(
+    std::string const name)
+{
+  try {
+    runTaskProgress("Loading", \
+        std::string("Opening ") + name + std::string(" ..."),
+        [&](double * const done) {
+          m_storage.loadDataset(name.c_str(), done);
+        });
+
+    updateMatrixSize();
+
+    Matrix const * const mat = m_storage.getMatrix();
+    m_view->setMatrix(mat);
+
+    m_view->render();
+
+    // set current path
+    m_currentPath = name;
+
+    // re-enable things
+    m_menuBar->EnableTop(1,true);
+    m_menuBar->EnableTop(2,true);
+    m_menuBar->Enable(ID_SAVE,true);
+    m_menuBar->Enable(ID_SAVEAS,true);
+  } catch (std::bad_alloc const & e) {
+    wxMessageDialog msg(this, \
+        "Not enough memory to load matrix.", "", \
+        wxOK|wxICON_ERROR);
+    msg.ShowModal();
+    m_currentPath = std::string("");
+  } catch (std::exception const & e) {
+    wxMessageDialog msg(this,std::string("Error: ") + e.what(), "", \
+        wxOK|wxICON_ERROR);
+    msg.ShowModal();
+    m_currentPath = std::string("");
+  }
+}
+
+void MainWindow::save(
+    std::string const name)
+{
+  try {
+    runTaskProgress("Saving",std::string("Saving ") + name,
+        [&](double * done){m_storage.saveDataset(name.c_str(),done);});
+  } catch (std::exception const & e) {
+    wxMessageDialog errMsg(this,e.what(),"Error",wxOK|wxICON_ERROR);
+
+    errMsg.ShowModal();
+  }
+}
+
 
 /******************************************************************************
 * PRIVATE FUNCTIONS ***********************************************************
@@ -171,20 +223,6 @@ void MainWindow::updateMatrixSize()
 
   SetStatusText( msg, 1 );
 }
-
-void MainWindow::save(
-    std::string const name)
-{
-  try {
-    runTaskProgress("Saving",std::string("Saving ") + name,
-        [&](double * done){m_storage.saveDataset(name.c_str(),done);});
-  } catch (std::exception const & e) {
-    wxMessageDialog errMsg(this,e.what(),"Error",wxOK|wxICON_ERROR);
-
-    errMsg.ShowModal();
-  }
-}
-
 
 void MainWindow::runTaskProgress(
     std::string title,
@@ -229,40 +267,9 @@ void MainWindow::onOpen(
 		return;
 	}
 	
-  m_currentPath = openFileDialog.GetPath();
+  std::string const filename(openFileDialog.GetPath().mb_str());
 
-  try {
-    runTaskProgress("Loading", \
-        std::string("Opening ") + m_currentPath + std::string(" ..."),
-        [&](double * const done) {
-          m_storage.loadDataset(m_currentPath.c_str(), done);
-        });
-
-    updateMatrixSize();
-
-    Matrix const * const mat = m_storage.getMatrix();
-    m_view->setMatrix(mat);
-
-
-    m_view->render();
-
-    // re-enable things
-    m_menuBar->EnableTop(1,true);
-    m_menuBar->EnableTop(2,true);
-    m_menuBar->Enable(ID_SAVE,true);
-    m_menuBar->Enable(ID_SAVEAS,true);
-  } catch (std::bad_alloc const & e) {
-    wxMessageDialog msg(this, \
-        "Not enough memory to load matrix.", "", \
-        wxOK|wxICON_ERROR);
-    msg.ShowModal();
-    m_currentPath = std::string("");
-  } catch (std::exception const & e) {
-    wxMessageDialog msg(this,std::string("Error: ") + e.what(), "", \
-        wxOK|wxICON_ERROR);
-    msg.ShowModal();
-    m_currentPath = std::string("");
-  }
+  load(filename);
 }
 
 

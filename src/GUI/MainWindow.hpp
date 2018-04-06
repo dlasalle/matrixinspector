@@ -48,6 +48,25 @@ class MainWindow :
         int height);
 
 
+    /**
+    * @brief Save the matrix to the given filename.
+    *
+    * @param name The filename.
+    */
+    void save(
+        std::string name);
+
+
+    /**
+    * @brief Load a matrix from the given file.
+    *
+    * @param name The name of the file.
+    */
+    void load(
+        std::string name);
+
+
+
   private:
     DataStorage m_storage;
     // gui elements
@@ -76,16 +95,6 @@ class MainWindow :
         std::string title,
         std::string msg,
         std::function<void (double * progress)> job);
-
-
-    /**
-    * @brief Save the matrix to the given filename.
-    *
-    * @param name The filename.
-    */
-    void save(
-        std::string name);
-
 
 /* FILE **********************************************************************/
 
