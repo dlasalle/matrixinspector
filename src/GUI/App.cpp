@@ -14,6 +14,7 @@
 #include <wx/display.h>
 #include "App.hpp"
 #include "MainWindow.hpp"
+#include <stdexcept>
 
 
 
@@ -35,6 +36,17 @@ bool App::OnInit()
   MainWindow * win = new MainWindow("MatrixInspector",rect.GetWidth()*0.1, \
       rect.GetHeight()*0.1,rect.GetWidth()*0.8,rect.GetHeight()*0.8);
   win->Show(true);
+
+  if (wxApp::argc == 1) {
+    // proceed normally
+  } else if (wxApp::argc == 2) {
+    // load a matrix/graph
+    win->load(std::string(wxApp::argv[1].mb_str()));
+  } else {
+    // bad commands
+    throw std::runtime_error("Bad arguments");
+  }
+
   return true;
 }
 
