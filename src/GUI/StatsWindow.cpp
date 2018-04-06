@@ -11,7 +11,7 @@
 
 #include <vector>
 #include "GUI/WindowProperties.hpp"
-#include "Data/CSRMatrix.hpp"
+#include "Data/SparseMatrix.hpp"
 #include "Utility/String.hpp"
 #include "StatsWindow.hpp"
 
@@ -69,14 +69,19 @@ StatsWindow::StatsWindow(
   // matrix size
   addRow(allSizer,"Number of rows",mat->getNumRows());
   addRow(allSizer,"Number of columns",mat->getNumColumns());
-  CSRMatrix const * csr;
-  if ((csr = dynamic_cast<CSRMatrix const *>(mat)) != nullptr) {
-    addRow(allSizer,"Number of non-zeros", csr->getNumNonZeros());
+  SparseMatrix const * spMat = dynamic_cast<SparseMatrix const *>(mat);
+  if (spMat != nullptr) {
+    addRow(allSizer,"Number of non-zeros", spMat->getNumNonZeros());
   }
 
   // matrix properties
   addRow(allSizer,"Square",BOOL_NAMES[mat->isSquare()]);
   addRow(allSizer,"Symmetric",BOOL_NAMES[mat->isSymmetric()]);
+
+  if (spMat != nullptr) {
+    addRow(allSizer,"Structurally Symmetric",
+        BOOL_NAMES[spMat->isStructurallySymmetric()]);
+  }
 
   // real stats
   addRow(allSizer,"Maximum NNZ per row", mat->getMaxRowSize());
