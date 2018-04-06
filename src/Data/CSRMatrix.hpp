@@ -15,9 +15,9 @@
 
 
 
-#include <vector>
+#include "SparseMatrix.hpp"
 #include "Types.hpp"
-#include "Matrix.hpp"
+#include <vector>
 
 
 
@@ -27,7 +27,7 @@ namespace MatrixInspector
 
 
 class CSRMatrix :
-  public Matrix
+  public SparseMatrix
 {
   public:
     /**
@@ -108,14 +108,6 @@ class CSRMatrix :
 
 
     /**
-    * @brief Get the number of non-zeros in the matrix.
-    *
-    * @return The number of non-zeros.
-    */
-    index_type getNumNonZeros() const;
-
-
-    /**
     * @brief Get the row offsets.
     *
     * @return The row of offsets.
@@ -166,7 +158,6 @@ class CSRMatrix :
 
 
   private:
-    index_type m_numNonZeros;
     std::vector<index_type> m_offsets;
     std::vector<dim_type> m_columns;
     std::vector<value_type> m_values;

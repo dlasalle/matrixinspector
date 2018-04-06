@@ -46,8 +46,7 @@ CSRMatrix::CSRMatrix(
     dim_type const numRows,
     dim_type const numCols,
     index_type const numNonZeros) :
-  Matrix(numRows,numCols),
-  m_numNonZeros(numNonZeros),
+  SparseMatrix(numRows, numCols, numNonZeros),
   m_offsets(numRows+1),
   m_columns(numNonZeros),
   m_values(numNonZeros)
@@ -67,12 +66,6 @@ CSRMatrix::~CSRMatrix()
 /******************************************************************************
 * PUBLIC FUNCTIONS ************************************************************
 ******************************************************************************/
-
-
-index_type CSRMatrix::getNumNonZeros() const
-{
-  return m_numNonZeros;
-}
 
 
 index_type const * CSRMatrix::getOffsets() const
@@ -371,6 +364,7 @@ void CSRMatrix::computeSymmetry(
   if (!isSquare()) {
     // easy call
     setSymmetry(false);
+    setStructuralSymmetry(false);
   } else {
     dim_type const numRows = getNumRows();
 
@@ -404,6 +398,9 @@ void CSRMatrix::computeSymmetry(
     }
     #else
 
+    bool structural = true;
+    bool numerical = true;
+
     // determine rows per percent
     dim_type interval = numRows > 30 ? numRows / 30 : 1; 
 
@@ -420,14 +417,17 @@ void CSRMatrix::computeSymmetry(
         }
         value_type const tolerance = std::max(EPSILON, \
             static_cast<value_type>(val*1e-8));
-        if (idx2 == m_offsets[col+1] || \
-            std::abs(m_values[idx2] - val) > tolerance) {
-          // not matching values 
-          setSymmetry(false);
-          if (progress != nullptr && row % interval == 0) {
+        if (idx2 == m_offsets[col+1]) {
+          structural = false;
+          numerical = false;
+          // advance progress to end
+          if (progress != nullptr) {
             *progress += ((numRows - row)/30) * scale * INCREMENT;
           }
-          return;
+          goto END;
+        } else if (std::abs(m_values[idx2] - val) > tolerance) {
+          // keep searching for structural symmetry
+          numerical = false;
         }
       }
 
@@ -436,9 +436,10 @@ void CSRMatrix::computeSymmetry(
       }
     }
     #endif
-
-    // we made it this far -- must be symmetric
-    setSymmetry(true);
+    
+    END:
+    setSymmetry(numerical);
+    setStructuralSymmetry(structural);
   }
 }
 
@@ -452,7 +453,7 @@ void CSRMatrix::computeSymmetry(
 void CSRMatrix::updateNumNonZeros()
 {
   ASSERT_EQUAL(getNumRows()+1,m_offsets.size());
-  m_numNonZeros = m_offsets[getNumRows()];
+  setNumNonZeros(m_offsets[getNumRows()]);
 }
 
 
