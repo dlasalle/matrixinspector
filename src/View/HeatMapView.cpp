@@ -125,9 +125,9 @@ void HeatMapView::refresh()
       for (index_type idx = offsets[row]; idx < offsets[row+1]; ++idx) {
         dim_type const column = columns[idx];
         dim_type const x = column * conv;
-        ASSERT_LESS(x,wPixels);
+        ASSERT_LESS(x, wPixels);
         dim_type const y = row * conv;
-        ASSERT_LESS(y,hPixels);
+        ASSERT_LESS(y, hPixels);
 
         m_heatmap.add(x,y);
       }
