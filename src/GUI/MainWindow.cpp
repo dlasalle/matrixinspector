@@ -65,6 +65,10 @@ namespace
 
 const std::chrono::milliseconds WAIT_TIME(100);
 
+const char * const SUPPORTED_TYPES_STRING = \
+      "GRAPH / MATRIX (*.csr;*.graph;*.chaco;*.mtx;*.mm;*.snap)|" \
+      "*.csr;*.graph;*.chaco;*.mtx;*.mm;*.snap";
+
 }
 
 
@@ -257,9 +261,7 @@ void MainWindow::onOpen(
     wxCommandEvent&)
 {
 	wxFileDialog openFileDialog(this, _("Open Matrix/Graph"), "", "", \
-      "CSR (*.csr)|*.csr|" \
-      "Metis/Chaco (*.graph;*.chaco)|*.graph;*.chaco|" \
-      "MatrixMarket (*.mtx;*.mm)|*.mtx;*.mm", \
+      SUPPORTED_TYPES_STRING, \
 			wxFD_OPEN|wxFD_FILE_MUST_EXIST);
 
 	if (openFileDialog.ShowModal() == wxID_CANCEL) {
@@ -294,9 +296,7 @@ void MainWindow::onSaveAs(
     wxCommandEvent&)
 {
   wxFileDialog saveFileDialog(this, _("Save Matrix/Graph"), "", "", \
-      "CSR (*.csr)|*.csr|" \
-      "Metis/Chaco (*.graph;*.chaco)|*.graph;*.chaco|" \
-      "MatrixMarket (*.mtx;*.mm)|*.mtx;*.mm", \
+      SUPPORTED_TYPES_STRING, \
       wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
 	if (saveFileDialog.ShowModal() == wxID_CANCEL) {
