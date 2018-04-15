@@ -7,6 +7,8 @@ environment:
   - VS_VERSION: 14
     VS_PLATFORM: x64
 
+install:
+  - cinst wxwidgets --version 3.0.2
 
 before_build:
   - md build-release
