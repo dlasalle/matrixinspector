@@ -1,0 +1,7 @@
+site_name: MatrixInspector
+docs_dir: ./doc
+pages:
+ - Home: 'index.md'
+ - Getting Started: '02_intro.md'
+extra:
+  logo: logo.svg
