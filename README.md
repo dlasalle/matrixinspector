@@ -1,6 +1,13 @@
 MatrixInspector
 ===============
 
+<a href="https://travis-ci.org/dlasalle/matrixinspector">
+  <img src="https://travis-ci.org/dlasalle/matrixinspector.svg?branch=master"/>
+</a>
+<a href="http://matrixinspector.readthedocs.io/en/latest/">
+  <img src="https://matrixinspector.readthedocs.io/en/latest/?badge=latest"/>
+</a>
+
 A tool for viewing and manipulating sparse matrices.
 
 <img alt="unzoomed" src="screenshots/full.png" width="512px"/>
@@ -44,9 +51,4 @@ make install
 ```
 
 
-Unit Tests
-----------
 
-<a href="https://travis-ci.org/dlasalle/matrixinspector">
-  <img src="https://travis-ci.org/dlasalle/matrixinspector.svg?branch=master"/>
-</a>
