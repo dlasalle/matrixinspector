@@ -2,6 +2,8 @@ site_name: MatrixInspector
 docs_dir: ./doc
 pages:
  - Home: 'index.md'
- - Getting Started: '02_intro.md'
+ - File Menu: '02_file.md'
+ - Edit Menu: '03_edit.md'
+ - Analyze Menu: '04_analyze.md'
 extra:
   logo: logo.svg
