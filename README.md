@@ -5,7 +5,7 @@ MatrixInspector
   <img src="https://travis-ci.org/dlasalle/matrixinspector.svg?branch=master"/>
 </a>
 <a href="http://matrixinspector.readthedocs.io/en/latest/">
-  <img src="https://matrixinspector.readthedocs.io/en/latest/?badge=latest"/>
+  <img src="https://readthedocs.org/projects/matrixinspector/badge/?version=latest" alt='Documentation Status'/>
 </a>
 
 A tool for viewing and manipulating sparse matrices.
