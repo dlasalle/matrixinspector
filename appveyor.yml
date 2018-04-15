@@ -1,6 +1,7 @@
 version: "build-{build}"
 
 environment:
+  WXWIDGETS_INSTALL_PATH: "C:/wxWidgets-3.0.2"
   matrix:
   - VS_VERSION: 14
     VS_PLATFORM: win32
