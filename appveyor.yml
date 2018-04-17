@@ -11,6 +11,10 @@ environment:
 install:
   - cinst wxwidgets --version 3.1.0
 
+clone_script:
+- cmd: git clone -q --recursive --branch=%APPVEYOR_REPO_BRANCH% https://github.com/%APPVEYOR_REPO_NAME%.git %APPVEYOR_BUILD_FOLDER%
+- cmd: git checkout -qf %APPVEYOR_REPO_COMMIT%
+
 before_build:
   - msbuild /m %WXWIDGETS_INSTALL_PATH%"/build/msw/wx_vc14.sln" "/p:Configuration=DLL Release;PlatformToolset=v140;WholeProgramOptimization=true" /target:core,base,gl /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
   - md build-release
@@ -23,7 +27,6 @@ before_build:
   - cd ../
 
 build_script:
-  - git submodule update --init --recursive
   - cd build-release
   - cmake --build . --config Release
   - ctest . -C Release --output-on-failure

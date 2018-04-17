@@ -18,9 +18,9 @@ file(GLOB base_sources *.cpp)
 
 
 # add resources on windows
-if (WIN32)
-  set(sources "${sources}; GUI/App.rc")
-endif(WIN32)
+#if (WIN32)
+#  set(sources "${sources}; GUI/App.rc")
+#endif(WIN32)
 
 # library
 add_library(matrixinspector STATIC
