@@ -1,7 +1,7 @@
 version: "build-{build}"
 
 environment:
-  WXWIDGETS_INSTALL_PATH: "C:/wxWidgets-3.0.2"
+  WXWIDGETS_INSTALL_PATH: "C:/wxWidgets-3.1.0"
   matrix:
   - VS_VERSION: 14
     VS_PLATFORM: win32
@@ -9,9 +9,10 @@ environment:
     VS_PLATFORM: x64
 
 install:
-  - cinst wxwidgets --version 3.0.2
+  - cinst wxwidgets --version 3.1.0
 
 before_build:
+  - msbuild /m %WXWIDGETS_INSTALL_PATH%"/build/msw/wx_vc14.sln" "/p:Configuration=DLL Release;PlatformToolset=v140;WholeProgramOptimization=true" /target:core,base,gl /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
   - md build-release
   - cd build-release
   - cmake -G "Visual Studio %VS_VERSION%" -DCMAKE_VERBOSE_MAKEFILE=1 -DTESTS=1 ../
