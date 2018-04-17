@@ -23,6 +23,7 @@ before_build:
   - cd ../
 
 build_script:
+  - git submodule update --init --recursive
   - cd build-release
   - cmake --build . --config Release
   - ctest . -C Release --output-on-failure
