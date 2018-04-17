@@ -19,9 +19,10 @@ find_package(Threads REQUIRED)
 find_package(OpenGL REQUIRED)
 if (NOT "$ENV{WXWIDGETS_INSTALL_PATH}" STREQUAL "")
   message("Searching for wxWidgets in $ENV{WXWIDGETS_INSTALL_PATH}")
-  set(wxWidgets_ROOT_DIR "$ENV{WXWIDGETS_INSTALL_PATH}")
+  find_package(wxWidgets COMPONENTS core base gl REQUIRED PATH "$ENV{WXWIDGETS_INSTALL_PATH}")
+else()
+  find_package(wxWidgets COMPONENTS core base gl REQUIRED)
 endif()
-find_package(wxWidgets COMPONENTS core base gl REQUIRED)
 include("${wxWidgets_USE_FILE}")
 
 # set up types
