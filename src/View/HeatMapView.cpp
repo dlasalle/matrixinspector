@@ -7,16 +7,17 @@
  */
 
 
+#include "HeatMapView.hpp"
+#include "Data/CSRMatrix.hpp"
+#include "Utility/Debug.hpp"
 
 #ifdef _WIN32
 // prevent errors in gl.h
+#define NOMINMAX
 #include <windows.h>
 #endif
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include "HeatMapView.hpp"
-#include "Data/CSRMatrix.hpp"
-#include "Utility/Debug.hpp"
 #include <algorithm>
 
 
