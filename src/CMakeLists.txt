@@ -18,9 +18,10 @@ file(GLOB base_sources *.cpp)
 
 
 # add resources on windows
-#if (WIN32)
-#  set(sources "${sources}; GUI/App.rc")
-#endif(WIN32)
+if (WIN32)
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
+  #set(sources "${sources}; GUI/App.rc")
+endif(WIN32)
 
 # library
 add_library(matrixinspector STATIC
