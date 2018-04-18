@@ -17,6 +17,7 @@
 #include "HeatMapView.hpp"
 #include "Data/CSRMatrix.hpp"
 #include "Utility/Debug.hpp"
+#include <algorithm>
 
 
 
