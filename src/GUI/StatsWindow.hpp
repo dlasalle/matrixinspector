@@ -52,19 +52,13 @@ class StatsWindow :
         std::string value);
 
 
-    void addRow(
+    void addRowInt(
         wxBoxSizer * topSizer,
         std::string key,
         index_type num);
 
 
-    void addRow(
-        wxBoxSizer * topSizer,
-        std::string key,
-        dim_type num);
-
-
-    void addRow(
+    void addRowFloat(
         wxBoxSizer * topSizer,
         std::string key,
         double num);

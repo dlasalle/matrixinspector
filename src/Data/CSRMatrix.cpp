@@ -14,6 +14,7 @@
 #include "CSRMatrix.hpp"
 #include "Utility/PrefixSum.hpp"
 #include "Utility/Debug.hpp"
+#include <algorithm>
 
 
 

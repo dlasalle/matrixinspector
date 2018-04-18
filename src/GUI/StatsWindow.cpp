@@ -67,11 +67,11 @@ StatsWindow::StatsWindow(
   wxBoxSizer * allSizer = new wxBoxSizer(wxVERTICAL);
 
   // matrix size
-  addRow(allSizer,"Number of rows",mat->getNumRows());
-  addRow(allSizer,"Number of columns",mat->getNumColumns());
+  addRowInt(allSizer,"Number of rows",mat->getNumRows());
+  addRowInt(allSizer,"Number of columns",mat->getNumColumns());
   SparseMatrix const * spMat = dynamic_cast<SparseMatrix const *>(mat);
   if (spMat != nullptr) {
-    addRow(allSizer,"Number of non-zeros", spMat->getNumNonZeros());
+    addRowInt(allSizer,"Number of non-zeros", spMat->getNumNonZeros());
   }
 
   // matrix properties
@@ -84,10 +84,10 @@ StatsWindow::StatsWindow(
   }
 
   // real stats
-  addRow(allSizer,"Maximum NNZ per row", mat->getMaxRowSize());
-  addRow(allSizer,"Maximum NNZ per column", mat->getMaxColumnSize());
-  addRow(allSizer,"Number of empty rows", mat->getNumEmptyRows());
-  addRow(allSizer,"Number of empty columns", mat->getNumEmptyColumns());
+  addRowInt(allSizer,"Maximum NNZ per row", mat->getMaxRowSize());
+  addRowInt(allSizer,"Maximum NNZ per column", mat->getMaxColumnSize());
+  addRowInt(allSizer,"Number of empty rows", mat->getNumEmptyRows());
+  addRowInt(allSizer,"Number of empty columns", mat->getNumEmptyColumns());
 
   // setup dialog buttons
   wxBoxSizer * bottomSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -129,28 +129,19 @@ void StatsWindow::addRow(
 }
 
 
-void StatsWindow::addRow(
+void StatsWindow::addRowInt(
     wxBoxSizer * const topSizer,
     std::string const key,
-    index_type num)
+    index_type const num)
 {
   addRow(topSizer, key, String::addThousandsSeparators(num));
 }
 
 
-void StatsWindow::addRow(
+void StatsWindow::addRowFloat(
     wxBoxSizer * const topSizer,
     std::string const key,
-    dim_type num)
-{
-  addRow(topSizer,key,static_cast<index_type>(num));
-}
-
-
-void StatsWindow::addRow(
-    wxBoxSizer * const topSizer,
-    std::string const key,
-    double num)
+    double const num)
 {
   addRow(topSizer, key, std::to_string(num));
 }
