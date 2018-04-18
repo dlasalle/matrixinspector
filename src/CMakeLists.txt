@@ -21,7 +21,9 @@ file(GLOB base_sources *.cpp)
 if (WIN32)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
   #set(sources "${sources}; GUI/App.rc")
-endif(WIN32)
+else()
+  set(MATH_LIBS m)
+endif()
 
 # library
 add_library(matrixinspector STATIC
@@ -29,14 +31,13 @@ add_library(matrixinspector STATIC
   ${sources}
 )
 
-
 # configure libraries
 list(APPEND MATRIXINSPECTOR_LIBS 
   matrixinspector
   wildriver
   ${wxWidgets_LIBRARIES}
   ${OPENGL_LIBRARY}
-  m)
+  ${MATH_LIBS})
 
 add_subdirectory("Bin")
 
