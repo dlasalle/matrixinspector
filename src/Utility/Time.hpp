@@ -15,7 +15,7 @@
 
 
 
-#include <sys/time.h>
+#include <chrono>
 
 
 
@@ -35,14 +35,6 @@ class Time
 
 
     /**
-     * @brief Get the number of seconds elapsed since Jan 1st. 1970 GMT.
-     *
-     * @return The number of elapsed seconds.
-     */
-    static uint64_t now() noexcept;
-
-
-    /**
      * @brief Return a double representing the current time stamp. This stamp
      * is only guarenteed to be increasing for the duration of this program,
      * and substracting two stamps will result in the number of seconds between
@@ -52,12 +44,15 @@ class Time
      */
     static inline double stamp() noexcept
     {
-      struct timeval tv;
-      gettimeofday(&tv,nullptr);
-
-      return static_cast<double>(tv.tv_sec) + (static_cast<double>(tv.tv_usec)/MICROSECONDS);
+      std::chrono::high_resolution_clock::time_point time =
+          std::chrono::high_resolution_clock::now();
+			size_t const ticks = time.time_since_epoch().count();
+			double constexpr SECONDS_PER_TICK = \
+					static_cast<double>(std::chrono::system_clock::period::num) / \
+					static_cast<double>(std::chrono::system_clock::period::den);
+ 			double const seconds = ticks * SECONDS_PER_TICK;
+			return seconds;
     }
-
 
     /**
      * @brief Sleep the current thread for the given number of seconds (down to

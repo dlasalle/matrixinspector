@@ -26,15 +26,6 @@ namespace MatrixInspector
 ******************************************************************************/
 
 
-uint64_t Time::now() noexcept
-{
-  struct timeval tv;
-  gettimeofday(&tv,nullptr);
-
-  return static_cast<uint64_t>(tv.tv_sec);
-}
-
-
 void Time::sleep(
     double const sec) noexcept
 {
