@@ -7,6 +7,10 @@ macro( addbinary name )
   install(TARGETS ${name}-bin
     RUNTIME DESTINATION bin
   )
+  if (MSVC)
+    set_property(TARGET name APPEND_STRING
+        PROPERTY LINK_FLAGS " /NODEFAULTLIB:msvcrtd /NODEFAULTLIB:msvcprtd")
+  endif()
 endmacro()
 
 

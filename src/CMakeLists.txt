@@ -25,11 +25,6 @@ else()
   set(MATH_LIBS m)
 endif()
 
-if (MSVC)
-	set_property(TARGET ${PROJECT_NAME} APPEND_STRING
-			PROPERTY LINK_FLAGS " /NODEFAULTLIB:msvcrtd /NODEFAULTLIB:msvcprtd")
-endif()
-
 # library
 add_library(matrixinspector STATIC
   ${base_sources}
