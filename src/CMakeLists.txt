@@ -20,7 +20,7 @@ file(GLOB base_sources *.cpp)
 # add resources on windows
 if (WIN32)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS=1)
-  #set(sources "${sources}; GUI/App.rc")
+  set(sources "${sources}; GUI/App.rc")
 else()
   set(MATH_LIBS m)
 endif()
