@@ -409,7 +409,7 @@ void CSRMatrix::computeSymmetry(
         dim_type const col = m_columns[idx];
         value_type const val = m_values[idx];
         index_type idx2;
-        for (idx2 = m_offsets[col]; idx < m_offsets[col+1]; \
+        for (idx2 = m_offsets[col]; idx2 < m_offsets[col+1]; \
             ++idx2) {
           if (m_columns[idx2] == row) {
             break;
