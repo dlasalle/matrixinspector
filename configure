@@ -64,6 +64,7 @@ CONFIG_FLAGS="-DCMAKE_VERBOSE_MAKEFILE=1"
 # default values
 CMAKE="$(which cmake)"
 BUILDDIR="build/$(uname -s)-$(uname -m)"
+WX_SET=0
 
 
 # parse arguments
@@ -103,6 +104,7 @@ for i in "${@}"; do
     CONFIG_FLAGS="${CONFIG_FLAGS} -DCMAKE_CXX_COMPILER=${i#*=}"
     ;;
     --wxconfig=*)
+    WX_SET=1
     CONFIG_FLAGS="${CONFIG_FLAGS} -DwxWidgets_CONFIG_EXECUTABLE=${i#*=}"
     ;;
     # testing
@@ -138,11 +140,17 @@ mkdir -vp "${BUILDDIR}" || \
     die "Failed to create build directory: '${BUILDDIR}'"
 
 
-# handle oddly named wx-config
-ODD_WXCONFIG="/usr/bin/wx-config-3.0"
-if [[ -e "${ODD_WXCONFIG}" ]]; then
-  echo "Using odd wx-config name '${ODD_WXCONFIG}'"
-  CONFIG_FLAGS="${CONFIG_FLAGS} -DwxWidgets_CONFIG_EXECUTABLE=${ODD_WXCONFIG}"
+if [[ "${WX_SET}" == "0" ]]; then
+  # handle oddly named wx-config
+  ODD_WXCONFIG="/usr/bin/wx-config-3.0"
+  GTK3_WXCONFIG="/usr/bin/wx-config-gtk3"
+  if [[ -e "${ODD_WXCONFIG}" ]]; then
+    echo "Using odd wx-config name '${ODD_WXCONFIG}'"
+    CONFIG_FLAGS="${CONFIG_FLAGS} -DwxWidgets_CONFIG_EXECUTABLE=${ODD_WXCONFIG}"
+  elif [[ -e "${GTK3_WXCONFIG}" ]]; then
+    echo "Using gtk3 wx-config name '${GTK3_WXCONFIG}'"
+    CONFIG_FLAGS="${CONFIG_FLAGS} -DwxWidgets_CONFIG_EXECUTABLE=${GTK3_WXCONFIG}"
+  fi
 fi
 
 
